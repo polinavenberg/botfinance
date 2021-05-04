@@ -1,7 +1,7 @@
-import requests
-from bs4 import BeautifulSoup
 import globals
 import lxml
+import requests
+from bs4 import BeautifulSoup
 
 
 def get_news():
@@ -12,4 +12,3 @@ def get_news():
     for link in links:
         news[link.text[2:]] = link['href']
     return news
-

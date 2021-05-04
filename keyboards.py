@@ -20,7 +20,3 @@ currency_subscription_keyboard = types.ReplyKeyboardMarkup(row_width=1, resize_k
 currency_subscription_keyboard.add(types.KeyboardButton(text='Подписаться на рассылку курсов валют'))
 currency_subscription_keyboard.add(types.KeyboardButton(text='Отписаться от рассылки курсов валют'))
 currency_subscription_keyboard.add(types.KeyboardButton(text='Назад'))
-
-
-
-

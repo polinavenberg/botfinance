@@ -5,7 +5,11 @@ from conversion import convert
 
 
 def create_conversion_message():
-    return '100 RUB\n' + convert(100, 'RUB', 'USD') + '\n' + convert(100, 'RUB', 'EUR') + '\n' + convert(100, 'RUB', 'BYN') + '\n' + convert(100, 'RUB', 'GBP') + '\n' + convert(100, 'RUB', 'JPY')
+    return '100 RUB\n' + convert(100, 'RUB', 'USD') + \
+           '\n' + convert(100, 'RUB', 'EUR') + \
+           '\n' + convert(100, 'RUB', 'BYN') + \
+           '\n' + convert(100, 'RUB', 'GBP') + \
+           '\n' + convert(100, 'RUB', 'JPY')
 
 
 def mailing_news():

@@ -82,3 +82,4 @@ class DataBase:
 
 
 db = DataBase()
+db.print_users()
