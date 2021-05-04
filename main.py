@@ -11,6 +11,11 @@ from multiprocessing.context import Process
 
 @bot.message_handler(commands=['start', 'help'])
 def send_hello(message):
+    '''
+    Функция, которая отвечает на команды.
+    :param message: сообщение пользователя
+    :return:
+    '''
     if message.text == '/start':
         bot.reply_to(message,
                      f'Привет, {message.from_user.first_name}. Я Finance Bot.',
@@ -18,11 +23,20 @@ def send_hello(message):
         if not db.check_user_existion(message.chat.id):
             db.add_new_user(message.chat.id)
     elif message.text == '/help':
-        bot.send_message(message.chat.id, f'Ничем не могу помочь')
+        bot.send_message(message.chat.id, f'Привет! Я финансовый бот.\nЧто я могу:\n'
+                                          f'/Новости: Присылаю 10 актуальных новостей с сайта rbc.ru.\n'
+                                          f'/Конвертер валют: Конвертирую любые валюты.\n'
+                                          f'/Подписаться на рассылку: Возможность подписаться или отписаться от рассылки новостей и курсов валют.'
+                                          f'Сообщения с рассылкой приходят в 13:00 по московскому времени.')
 
 
 @bot.message_handler(content_types=['text'])
 def get_text_message(message):
+    '''
+    Функция, которая отвечает на сообщения пользователя.
+    :param message: сообщение пользователя
+    :return:
+    '''
     message.text.lower()
     if message.text == 'привет':
         bot.send_message(message.chat.id, 'Привет!')
@@ -106,14 +120,22 @@ schedule.every().day.at(globals.mailing_time).do(mailing.mailing_currency)
 
 
 def packets_to_host():
+    '''
+    Функция, которая ведет отсчет времени для рассылки по расписанию.
+    :return:
+    '''
     while True:
         schedule.run_pending()
         time.sleep(1)
 
 
 def start_process():
-    p1 = Process(target=packets_to_host, args=())
-    p1.start()
+    '''
+    Функция, которая запускает процесс отсчета времени.
+    :return:
+    '''
+    process = Process(target=packets_to_host, args=())
+    process.start()
 
 
 if __name__ == '__main__':
