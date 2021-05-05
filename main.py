@@ -3,10 +3,8 @@ from globals import bot, db
 from tests import TestFinanceBot
 import keyboards
 import mailing
-import news
 import schedule
 import time
-from conversion import convert
 from multiprocessing.context import Process
 from func import processing_get_text_mes
 
@@ -34,10 +32,8 @@ def get_text_message(message):
     Функция, которая отвечает на сообщения пользователя.
     :param message: сообщение пользователя
     :return:
-
     '''
     processing_get_text_mes(message)
-
 
 
 schedule.every().day.at(globals.mailing_time).do(mailing.mailing_news)
@@ -64,7 +60,6 @@ def start_process():
 
 
 TestFinanceBot().test_message_handler()
-
 
 if __name__ == '__main__':
     start_process()
