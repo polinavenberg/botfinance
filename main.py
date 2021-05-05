@@ -1,5 +1,6 @@
 import globals
 from globals import bot, db
+from tests import TestFinanceBot
 import keyboards
 import mailing
 import news
@@ -23,11 +24,7 @@ def send_hello(message):
         if not db.check_user_existion(message.chat.id):
             db.add_new_user(message.chat.id)
     elif message.text == '/help':
-        bot.send_message(message.chat.id, f'Привет! Я финансовый бот.\nЧто я могу:\n'
-                                          f'/Новости: Присылаю 10 актуальных новостей с сайта rbc.ru.\n'
-                                          f'/Конвертер валют: Конвертирую любые валюты.\n'
-                                          f'/Подписаться на рассылку: Возможность подписаться или отписаться от рассылки новостей и курсов валют.'
-                                          f'Сообщения с рассылкой приходят в 13:00 по московскому времени.')
+        bot.send_message(message.chat.id, globals.help_message)
 
 
 @bot.message_handler(content_types=['text'])
@@ -40,15 +37,15 @@ def get_text_message(message):
     message.text.lower()
     if message.text == 'привет':
         bot.send_message(message.chat.id, 'Привет!')
-    elif message.text == 'Новости':
+    elif message.text == 'Новости' or message.text == '/news':
         bot.send_message(message.chat.id,
                          f'Держи актуальные новости на сегодня:')
         news_dict = news.get_news()
         for key, value in news_dict.items():
             bot.send_message(message.chat.id, value)
-    elif message.text == 'Конвертер валют':
+    elif message.text == 'Конвертер валют' or message.text == '/conversion':
         bot.send_message(message.chat.id, globals.convertion_message)
-    elif message.text == 'Подписаться на рассылку':
+    elif message.text == 'Подписаться на рассылку' or message.text == '/mailing':
         bot.reply_to(message,
                      f'Выберите, на какую рассылку вы хотите подписаться',
                      reply_markup=keyboards.subscription_keyboard)
@@ -136,6 +133,9 @@ def start_process():
     '''
     process = Process(target=packets_to_host, args=())
     process.start()
+
+
+TestFinanceBot().test_message_handler()
 
 
 if __name__ == '__main__':
