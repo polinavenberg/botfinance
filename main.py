@@ -6,7 +6,7 @@ import mailing
 import schedule
 import time
 from multiprocessing.context import Process
-from func import processing_get_text_mes
+from functions import processing_get_text_mes
 
 
 @bot.message_handler(commands=['start', 'help'])
