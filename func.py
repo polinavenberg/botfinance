@@ -26,52 +26,16 @@ def processing_get_text_mes(message):
         bot.send_message(message.chat.id, 'Выберите действие:',
                          reply_markup=keyboards.news_subscription_keyboard)
     elif message.text == 'Подписаться на рассылку новостей':
-        if str(db.check_news_subscribtion(message.chat.id)) == '(False,)':
-            db.news_subscribe_unsubscribe(message.chat.id, True)
-            bot.send_message(message.chat.id,
-                             'Вы успешно подписались на рассылку новостей. '
-                             'Теперь каждый день в 10:00 вы будете получать '
-                             'актуальные новости.',
-                             reply_markup=keyboards.subscription_keyboard)
-        elif str(db.check_news_subscribtion(message.chat.id)) == '(True,)':
-            bot.send_message(message.chat.id,
-                             'Вы уже были подписаны на рассылку новостей',
-                             reply_markup=keyboards.subscription_keyboard)
+        news_subscribe_message(message.chat.id)
     elif message.text == 'Отписаться от рассылки новостей':
-        if str(db.check_news_subscribtion(message.chat.id)) == '(True,)':
-            db.news_subscribe_unsubscribe(message.chat.id, False)
-            bot.send_message(message.chat.id,
-                             'Вы успешно отписались от рассылки новостей',
-                             reply_markup=keyboards.subscription_keyboard)
-        else:
-            bot.send_message(message.chat.id,
-                             'Вы не были подписаны на рассылку новостей',
-                             reply_markup=keyboards.subscription_keyboard)
+        news_unsubscribe_message(message.chat.id)
     elif message.text == 'Рассылка курсов валют':
         bot.send_message(message.chat.id, 'Выберите действие:',
                          reply_markup=keyboards.currency_subscription_keyboard)
     elif message.text == 'Подписаться на рассылку курсов валют':
-        if str(db.check_currency_subscribtion(message.chat.id)) == '(False,)':
-            db.currency_subscribe_unsubscribe(message.chat.id, True)
-            bot.send_message(message.chat.id,
-                             'Вы успешно подписались на рассылку курсов валют.'
-                             ' Теперь каждый день в 10:00 вы будете получать '
-                             'актуальные курсы валют.',
-                             reply_markup=keyboards.subscription_keyboard)
-        else:
-            bot.send_message(message.chat.id,
-                             'Вы уже были подписаны на рассылку курсов валют',
-                             reply_markup=keyboards.subscription_keyboard)
+        currency_subscribe_message(message.chat.id)
     elif message.text == 'Отписаться от рассылки курсов валют':
-        if str(db.check_currency_subscribtion(message.chat.id)) == '(True,)':
-            db.currency_subscribe_unsubscribe(message.chat.id, False)
-            bot.send_message(message.chat.id,
-                             'Вы успешно отписались от рассылки курсов валют',
-                             reply_markup=keyboards.subscription_keyboard)
-        else:
-            bot.send_message(message.chat.id,
-                             'Вы не были подписаны на рассылку курсов валют',
-                             reply_markup=keyboards.subscription_keyboard)
+        currency_unsubscribe_message(message.chat.id)
     elif message.text == 'Назад':
         bot.send_message(message.chat.id, 'Возвращаемся в основное меню',
                          reply_markup=keyboards.main_keyboard)
@@ -83,3 +47,55 @@ def processing_get_text_mes(message):
                                      message_list[2]))
         except Exception:
             bot.send_message(message.chat.id, 'Неправильный ввод')
+
+
+def currency_subscribe_message(chat_id):
+    if str(db.check_currency_subscribtion(chat_id)) == '(False,)':
+        db.currency_subscribe_unsubscribe(chat_id, True)
+        bot.send_message(chat_id,
+                         'Вы успешно подписались на рассылку курсов валют.'
+                         ' Теперь каждый день в 10:00 вы будете получать '
+                         'актуальные курсы валют.',
+                         reply_markup=keyboards.subscription_keyboard)
+    else:
+        bot.send_message(chat_id,
+                         'Вы уже были подписаны на рассылку курсов валют',
+                         reply_markup=keyboards.subscription_keyboard)
+
+
+def currency_unsubscribe_message(chat_id):
+    if str(db.check_currency_subscribtion(chat_id)) == '(True,)':
+        db.currency_subscribe_unsubscribe(chat_id, False)
+        bot.send_message(chat_id,
+                         'Вы успешно отписались от рассылки курсов валют',
+                         reply_markup=keyboards.subscription_keyboard)
+    else:
+        bot.send_message(chat_id,
+                         'Вы не были подписаны на рассылку курсов валют',
+                         reply_markup=keyboards.subscription_keyboard)
+
+
+def news_subscribe_message(chat_id):
+    if str(db.check_news_subscribtion(chat_id)) == '(False,)':
+        db.news_subscribe_unsubscribe(chat_id, True)
+        bot.send_message(chat_id,
+                         'Вы успешно подписались на рассылку новостей. '
+                         'Теперь каждый день в 10:00 вы будете получать '
+                         'актуальные новости.',
+                         reply_markup=keyboards.subscription_keyboard)
+    elif str(db.check_news_subscribtion(chat_id)) == '(True,)':
+        bot.send_message(chat_id,
+                         'Вы уже были подписаны на рассылку новостей',
+                         reply_markup=keyboards.subscription_keyboard)
+
+
+def news_unsubscribe_message(chat_id):
+    if str(db.check_news_subscribtion(chat_id)) == '(True,)':
+        db.news_subscribe_unsubscribe(chat_id, False)
+        bot.send_message(chat_id,
+                         'Вы успешно отписались от рассылки новостей',
+                         reply_markup=keyboards.subscription_keyboard)
+    else:
+        bot.send_message(chat_id,
+                         'Вы не были подписаны на рассылку новостей',
+                         reply_markup=keyboards.subscription_keyboard)
