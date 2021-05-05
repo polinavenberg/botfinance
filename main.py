@@ -39,7 +39,7 @@ def get_text_message(message):
         bot.send_message(message.chat.id, 'Привет!')
     elif message.text == 'Новости' or message.text == '/news':
         bot.send_message(message.chat.id,
-                         f'Держи актуальные новости на сегодня:')
+                         'Держи актуальные новости на сегодня:')
         news_dict = news.get_news()
         for key, value in news_dict.items():
             bot.send_message(message.chat.id, value)
@@ -47,10 +47,10 @@ def get_text_message(message):
         bot.send_message(message.chat.id, globals.convertion_message)
     elif message.text == 'Подписаться на рассылку' or message.text == '/mailing':
         bot.reply_to(message,
-                     f'Выберите, на какую рассылку вы хотите подписаться',
+                     'Выберите, на какую рассылку вы хотите подписаться',
                      reply_markup=keyboards.subscription_keyboard)
     elif message.text == 'Рассылка новостей':
-        bot.send_message(message.chat.id, f'Выберите действие:',
+        bot.send_message(message.chat.id, 'Выберите действие:',
                          reply_markup=keyboards.news_subscription_keyboard)
     elif message.text == 'Подписаться на рассылку новостей':
         if str(db.check_news_subscribtion(message.chat.id)) == '(False,)':
@@ -62,7 +62,7 @@ def get_text_message(message):
                              reply_markup=keyboards.subscription_keyboard)
         elif str(db.check_news_subscribtion(message.chat.id)) == '(True,)':
             bot.send_message(message.chat.id,
-                             f'Вы уже были подписаны на рассылку новостей',
+                             'Вы уже были подписаны на рассылку новостей',
                              reply_markup=keyboards.subscription_keyboard)
     elif message.text == 'Отписаться от рассылки новостей':
         if str(db.check_news_subscribtion(message.chat.id)) == '(True,)':

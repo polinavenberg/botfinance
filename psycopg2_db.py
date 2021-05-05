@@ -31,7 +31,8 @@ class DataBase:
             for row in rows:
                 id_number += 1
             return self.cursor.execute(
-                f"INSERT INTO users (ID, USER_ID, NEWS_SUBSCRIPTION, CURRENCY_SUBSCRIPTION) VALUES {(id_number, user_id, False, False)}")
+                f"INSERT INTO users (ID, USER_ID, NEWS_SUBSCRIPTION, "
+                f"CURRENCY_SUBSCRIPTION) VALUES {(id_number, user_id, False, False)}")
 
     def get_news_subscribers(self, status):
         '''

@@ -23,4 +23,3 @@ def convert(amount, currency_from, currency_to):
     result = round(amount * from_rate / to_rate, 2)
     result_message = str(result) + ' ' + currency_to
     return result_message
-
