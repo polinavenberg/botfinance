@@ -1,9 +1,8 @@
-from globals import bot
-import keyboards
-from globals import db
 import globals
-from conversion import convert
+import keyboards
 import news
+from conversion import convert
+from globals import bot, db
 
 
 def hello(chat_id):
