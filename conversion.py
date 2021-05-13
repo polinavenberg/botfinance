@@ -21,5 +21,5 @@ def convert(amount, currency_from, currency_to):
         to_rate = rates[currency_to].value
 
     result = round(amount * from_rate / to_rate, 2)
-    result_message = str(result) + ' ' + currency_to
+    result_message = f'{str(result)} {currency_to}'
     return result_message
