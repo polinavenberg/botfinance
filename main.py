@@ -1,6 +1,5 @@
 import globals
 from globals import bot, db
-from tests import TestFinanceBot
 import keyboards
 import mailing
 import schedule
@@ -36,10 +35,6 @@ def get_text_message(message):
     processing_get_text_mes(message)
 
 
-schedule.every().day.at(globals.mailing_time).do(mailing.mailing_news)
-schedule.every().day.at(globals.mailing_time).do(mailing.mailing_currency)
-
-
 def packets_to_host():
     '''
     Функция, которая ведет отсчет времени для рассылки по расписанию.
@@ -59,8 +54,12 @@ def start_process():
     process.start()
 
 
-TestFinanceBot().test_message_handler()
+def schedule():
+    schedule.every().day.at(globals.mailing_time).do(mailing.mailing_news)
+    schedule.every().day.at(globals.mailing_time).do(mailing.mailing_currency)
+
 
 if __name__ == '__main__':
     start_process()
     bot.polling(none_stop=True)
+    schedule()
