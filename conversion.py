@@ -1,3 +1,4 @@
+import globals
 from pycbrf import ExchangeRates
 
 
@@ -10,12 +11,12 @@ def convert(amount, currency_from, currency_to):
     :return: готовое сообщение
     '''
     rates = ExchangeRates()
-    if currency_from == 'RUB':
+    if currency_from == globals.rub:
         from_rate = 1
     else:
         from_rate = rates[currency_from].value
 
-    if currency_to == 'RUB':
+    if currency_to == globals.rub:
         to_rate = 1
     else:
         to_rate = rates[currency_to].value

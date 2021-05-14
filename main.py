@@ -54,7 +54,11 @@ def start_process():
     process.start()
 
 
-def schedule():
+def schedule_messages():
+    '''
+    Функция, которая задает время, в которое осуществляется рассылка
+    :return:
+    '''
     schedule.every().day.at(globals.mailing_time).do(mailing.mailing_news)
     schedule.every().day.at(globals.mailing_time).do(mailing.mailing_currency)
 
@@ -62,4 +66,4 @@ def schedule():
 if __name__ == '__main__':
     start_process()
     bot.polling(none_stop=True)
-    schedule()
+    schedule_messages()
