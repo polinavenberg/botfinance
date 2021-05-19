@@ -1,7 +1,9 @@
 import telebot
+from decouple import config
 from psycopg2_db import DataBase
 
-Token = '1790254613:AAHLvFz4F6V7JRyb_jIsJlyejnMHeeRqfKY'
+
+Token = config('Token')
 url = 'https://www.rbc.ru/'
 
 bot = telebot.TeleBot(Token)
@@ -45,3 +47,5 @@ back_to_menu = 'Возвращаемся в основное меню'
 wrong_message = 'Неправильный ввод'
 true_message = '(True,)'
 false_message = '(False,)'
+
+user_id = 1; #id пользователя стоит во второй колонке таблицы
