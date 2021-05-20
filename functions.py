@@ -133,7 +133,7 @@ commands = {'привет': hello, 'Новости': news_message,
             'Рассылка курсов валют': currency_mailing_message,
             'Подписаться на рассылку курсов валют': currency_subscribe_message,
             'Отписаться от рассылки курсов валют': currency_unsubscribe_message,
-            'Назад': back}
+            'Назад': back_to_menu}
 
 
 def processing_get_text_message(message):
