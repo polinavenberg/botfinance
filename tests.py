@@ -8,7 +8,6 @@ class TestFinanceBot:
     def test_message_handler(self):
         '''
         Функция, выдающая ошибку, если не прошли тесты
-        :return:
         '''
         msg_help = self.create_text_message('/help')
         msg_mailing = self.create_text_message('/mailing')
@@ -42,7 +41,6 @@ class TestFinanceBot:
         '''
         Функция, которая создает сообщения, которые выводит бот на определенную команду
         :param text: команда
-        :return:
         '''
         params = {"text": text}
         chat = types.User(11, False, "test")
