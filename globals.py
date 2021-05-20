@@ -3,6 +3,11 @@ from decouple import config
 from psycopg2_db import DataBase
 
 Token = config('Token')
+user = config('user')
+password = config('password')
+host = config('host')
+port = config('port')
+database = config('database')
 url = 'https://www.rbc.ru/'
 
 bot = telebot.TeleBot(Token)
@@ -47,4 +52,5 @@ wrong_message = 'Неправильный ввод'
 true_message = '(True,)'
 false_message = '(False,)'
 
-user_id = 1  # id пользователя стоит во второй колонке таблицы
+id_index_in_table_line = 1  # id пользователя стоит во второй колонке таблицы
+without_first_two_symbols = 2
