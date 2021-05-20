@@ -18,19 +18,17 @@ def mailing_news():
     '''
     Функция отправляет сообщение с курсами валют всем пользователям,
     подписанным на рассылку курсов валют.
-    :return:
     '''
     news_dict = news.get_news()
     for user in globals.db.get_news_subscribers(True):
         for key, value in news_dict.items():
-            bot.send_message(user[globals.user_id], value)
+            bot.send_message(user[globals.id_index_in_table_line], value)
 
 
 def mailing_currency():
     '''
     Функция отправляет сообщение с актуальными новостями всем пользователям,
     подписанным на рассылку новостей.
-    :return:
     '''
     for user in globals.db.get_currency_subscribers(True):
-        bot.send_message(user[1], create_conversion_message())
+        bot.send_message(user[globals.id_index_in_table_line], create_conversion_message())
