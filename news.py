@@ -15,7 +15,8 @@ def get_news():
     # находятся в классе main__feed__link js-yandex-counter
     links = soup.find_all('a', class_='main__feed__link js-yandex-counter')
     # создаю словарь и в его ключи записываю заголовки новостей, а в значения ссылки на новости
-    news = {link.text[globals.without_first_two_symbols:]: link['href'] for link in links}
+    # первые два символа в каждом заголовке - это \n, записываем в словарь без них
+    news = {link.text[globals.without_first_two_enters:]: link['href'] for link in links}
     return news
 
 
