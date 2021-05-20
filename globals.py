@@ -53,4 +53,4 @@ true_message = '(True,)'
 false_message = '(False,)'
 
 id_index_in_table_line = 1  # id пользователя стоит во второй колонке таблицы
-without_first_two_symbols = 2
+without_first_two_enters = 2
