@@ -22,6 +22,8 @@ def mailing_news():
     news_dict = news.get_news()
     for user in globals.db.get_news_subscribers(True):
         for key, value in news_dict.items():
+            # обращаемся к user id нужного нам пользователя, который находится во второй колонке
+            #каждой строки таблицы
             bot.send_message(user[globals.id_index_in_table_line], value)
 
 
