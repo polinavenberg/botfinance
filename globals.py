@@ -2,7 +2,6 @@ import telebot
 from decouple import config
 from psycopg2_db import DataBase
 
-
 Token = config('Token')
 url = 'https://www.rbc.ru/'
 
@@ -31,14 +30,14 @@ convertion_message = 'Валюты должны быть написаны кап
                      'Например: 3 USD RUB'
 choose_mailing_message = 'Выберите, на какую рассылку вы хотите подписаться'
 choose_action = 'Выберите действие'
-success_currency_subscription = 'Вы успешно подписались на рассылку курсов валют.'\
-                                ' Теперь каждый день в 13:00 вы будете получать '\
+success_currency_subscription = 'Вы успешно подписались на рассылку курсов валют.' \
+                                ' Теперь каждый день в 13:00 вы будете получать ' \
                                 'актуальные курсы валют.'
 unsuccess_currency_subscription = 'Вы уже были подписаны на рассылку курсов валют'
 success_currency_unsubscription = 'Вы успешно отписались от рассылки курсов валют'
 unsuccess_currency_unsubscription = 'Вы не были подписаны на рассылку курсов валют'
-success_news_subscription = 'Вы успешно подписались на рассылку новостей. '\
-                            'Теперь каждый день в 13:00 вы будете получать '\
+success_news_subscription = 'Вы успешно подписались на рассылку новостей. ' \
+                            'Теперь каждый день в 13:00 вы будете получать ' \
                             'актуальные новости.'
 unsuccess_news_subscription = 'Вы уже были подписаны на рассылку новостей'
 success_news_unsubscription = 'Вы успешно отписались от рассылки новостей'
@@ -48,4 +47,4 @@ wrong_message = 'Неправильный ввод'
 true_message = '(True,)'
 false_message = '(False,)'
 
-user_id = 1; #id пользователя стоит во второй колонке таблицы
+user_id = 1  # id пользователя стоит во второй колонке таблицы
