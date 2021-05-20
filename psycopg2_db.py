@@ -1,4 +1,5 @@
 import psycopg2
+import globals
 
 
 class DataBase:
@@ -6,11 +7,11 @@ class DataBase:
         '''
         Функция подключается к базе данных и создает таблицу.
         '''
-        self.connection = psycopg2.connect(user='xlgmlvqjrcynpu',
-                                           password='70d6b2cd9485a4c80e791fcf1d1e37368a1983712599f7a3a302081c4c346444',
-                                           host='ec2-34-252-251-16.eu-west-1.compute.amazonaws.com',
-                                           port='5432',
-                                           database='dfhh3u6n4e58v')
+        self.connection = psycopg2.connect(user=globals.user,
+                                           password=globals.password,
+                                           host=globals.host,
+                                           port=globals.port,
+                                           database=globals.database)
         self.cursor = self.connection.cursor()
         self.table = '''CREATE TABLE Users
                           (ID             INT       PRIMARY KEY   NOT NULL,
@@ -27,9 +28,7 @@ class DataBase:
         with self.connection:
             self.cursor.execute("SELECT ID FROM users")
             rows = self.cursor.fetchall()
-            id_number = 1
-            for row in rows:
-                id_number += 1
+            id_number = len(rows) + 1
             return self.cursor.execute(
                 f"INSERT INTO users (ID, USER_ID, NEWS_SUBSCRIPTION, "
                 f"CURRENCY_SUBSCRIPTION) VALUES {(id_number, user_id, False, False)}")
@@ -63,7 +62,6 @@ class DataBase:
         Функция подписывает или отписывает пользователя от рассылки новостей.
         :param user_id: id пользователя
         :param status: True или False(подписаться или отписаться)
-        :return:
         '''
         with self.connection:
             self.cursor.execute(
@@ -75,7 +73,6 @@ class DataBase:
         валют.
         :param user_id: id пользователя
         :param status: True или False(подписаться или отписаться)
-        :return:
         '''
         with self.connection:
             self.cursor.execute(
@@ -108,7 +105,6 @@ class DataBase:
     def print_users(self):
         '''
         Функция печатает всех пользователей и их статусы подписки.
-        :return:
         '''
         self.cursor.execute("SELECT * FROM Users")
         rows = self.cursor.fetchall()
@@ -133,7 +129,6 @@ class DataBase:
     def close(self):
         '''
         Функция прерывает подключение к базе данных.
-        :return:
         '''
         self.connection.close()
 
