@@ -9,11 +9,9 @@ def create_conversion_message():
     пользователям, подписанным на рассылку курсов валют.
     :return: Сформированное сообщение
     '''
-    return '100 RUB\n' + convert(100, 'RUB', 'USD') + \
-           '\n' + convert(100, 'RUB', 'EUR') + \
-           '\n' + convert(100, 'RUB', 'BYN') + \
-           '\n' + convert(100, 'RUB', 'GBP') + \
-           '\n' + convert(100, 'RUB', 'JPY')
+    currency_list = ['RUB', 'USD', 'EUR', 'BYN', 'GBP', 'JPY']
+    mailing_message = [convert(100, 'RUB', final_currency) for final_currency in currency_list]
+    return '\n'.join(mailing_message)
 
 
 def mailing_news():
@@ -25,7 +23,7 @@ def mailing_news():
     news_dict = news.get_news()
     for user in globals.db.get_news_subscribers(True):
         for key, value in news_dict.items():
-            bot.send_message(user[1], value)
+            bot.send_message(user[globals.user_id], value)
 
 
 def mailing_currency():
