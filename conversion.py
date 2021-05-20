@@ -11,15 +11,9 @@ def convert(amount, currency_from, currency_to):
     :return: готовое сообщение
     '''
     rates = ExchangeRates()
-    if currency_from == globals.rub:
-        from_rate = 1
-    else:
-        from_rate = rates[currency_from].value
 
-    if currency_to == globals.rub:
-        to_rate = 1
-    else:
-        to_rate = rates[currency_to].value
+    from_rate = 1 if currency_from == globals.rub else rates[currency_from].value
+    to_rate = 1 if currency_to == globals.rub else rates[currency_to].value
 
     result = round(amount * from_rate / to_rate, 2)
     result_message = f'{str(result)} {currency_to}'
