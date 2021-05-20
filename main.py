@@ -5,15 +5,15 @@ import mailing
 import schedule
 import time
 from multiprocessing.context import Process
-from functions import processing_get_text_mes
+from functions import conversion_message, mailing_message, news_message, \
+    processing_get_text_message
 
 
 @bot.message_handler(commands=['start', 'help'])
-def send_hello(message):
+def base_functions(message):
     '''
-    Функция, которая отвечает на команды.
-    :param message: сообщение пользователя
-    :return:
+    Функция, которая отвечает на основные команды.
+    :param message: сообщение пользователя(команда)
     '''
     if message.text == '/start':
         bot.reply_to(message,
@@ -25,20 +25,32 @@ def send_hello(message):
         bot.send_message(message.chat.id, globals.help_message)
 
 
+@bot.message_handler(commands=['/news', '/conversion', 'mailing'])
+def main_bot_functions(message):
+    '''
+    Функция, которая отвечает на главные команды бота
+    :param message: сообщение пользователя(команда)
+    '''
+    if message.text == '/news':
+        news_message(message.chat.id)
+    if message.text == '/conversion':
+        conversion_message(message.chat.id)
+    if message.text == '/mailing':
+        mailing_message(message.chat.id)
+
+
 @bot.message_handler(content_types=['text'])
 def get_text_message(message):
     '''
     Функция, которая отвечает на сообщения пользователя.
     :param message: сообщение пользователя
-    :return:
     '''
-    processing_get_text_mes(message)
+    processing_get_text_message(message)
 
 
 def packets_to_host():
     '''
     Функция, которая ведет отсчет времени для рассылки по расписанию.
-    :return:
     '''
     while True:
         schedule.run_pending()
@@ -48,7 +60,6 @@ def packets_to_host():
 def start_process():
     '''
     Функция, которая запускает процесс отсчета времени.
-    :return:
     '''
     process = Process(target=packets_to_host, args=())
     process.start()
@@ -57,7 +68,6 @@ def start_process():
 def schedule_messages():
     '''
     Функция, которая задает время, в которое осуществляется рассылка
-    :return:
     '''
     schedule.every().day.at(globals.mailing_time).do(mailing.mailing_news)
     schedule.every().day.at(globals.mailing_time).do(mailing.mailing_currency)
